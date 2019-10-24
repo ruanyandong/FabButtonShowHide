@@ -27,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private static final int HIDE_THRESHOLD = 20;
     private int scrolledDistance = 0;
     private boolean isVisible = true;
+    private manager ins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ins = manager.getInstance();
+        ins.showFragment(this);
 
         rv = findViewById(R.id.rv);
         tv = findViewById(R.id.tv);
@@ -58,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
                     // 上滑和下滑是相对于手势来看
                     // 上滑隐藏
                     hide();
+                    ins.hide();
                     isVisible = false;
                     scrolledDistance = 0;
                 } else if (scrolledDistance < -HIDE_THRESHOLD && !isVisible) {
                     // 下滑显示
                     show();
+                    ins.show();
                     isVisible = true;
                     scrolledDistance = 0;
                 }
@@ -72,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 
